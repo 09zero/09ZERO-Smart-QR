@@ -1,0 +1,584 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eeeeeb;
+  color: #111;
+}
+
+.cafe-page {
+  width: 100%;
+  max-width: 540px;
+  min-height: 100vh;
+  margin: auto;
+  background: #fff;
+  padding: 30px 20px 35px;
+  overflow: hidden;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  text-align: center;
+  padding: 15px 0 32px;
+}
+
+.logo {
+  width: 82px;
+  height: 82px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.powered {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #777;
+  margin-bottom: 12px;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 9vw, 52px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -1.8px;
+  overflow-wrap: anywhere;
+}
+
+.cafe-address {
+  margin-top: 13px;
+  color: #777;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   MENU BUTTON
+========================= */
+
+.menu-section {
+  margin-bottom: 16px;
+}
+
+.main-btn {
+  width: 100%;
+  min-height: 68px;
+  border: 0;
+  border-radius: 18px;
+  background: #111;
+  color: #fff;
+  font-size: 19px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.main-btn:hover {
+  background: #252525;
+  transform: translateY(-2px);
+}
+
+.main-btn:active {
+  transform: scale(0.98);
+}
+
+
+/* =========================
+   REVIEW
+========================= */
+
+.review-section {
+  margin-bottom: 12px;
+}
+
+.action-btn {
+  width: 100%;
+  min-height: 62px;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  background: #fff;
+  color: #111;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.action-btn:hover {
+  background: #f5f5f3;
+  transform: translateY(-2px);
+}
+
+.action-btn:active {
+  transform: scale(0.98);
+}
+
+
+/* =========================
+   SOCIAL
+========================= */
+
+.social-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.social-btn {
+  min-height: 58px;
+  border-radius: 15px;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  transition: 0.2s ease;
+}
+
+.social-btn:hover {
+  background: #252525;
+  transform: translateY(-2px);
+}
+
+.social-btn:active {
+  transform: scale(0.98);
+}
+
+
+/* =========================
+   WHATSAPP SECTION
+========================= */
+
+.contact-section {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 35px;
+}
+
+.contact-btn {
+  width: 100%;
+  min-height: 60px;
+  border-radius: 15px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #111;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  transition: 0.2s ease;
+}
+
+.whatsapp-btn {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.whatsapp-btn:hover {
+  background: #252525;
+}
+
+.contact-btn:active {
+  transform: scale(0.98);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  text-align: center;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.footer-logo {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+footer p {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+
+footer small {
+  color: #999;
+  font-size: 11px;
+}
+
+
+/* =========================
+   MENU MODAL
+========================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 28px 28px 0 0;
+  padding: 28px 20px 35px;
+  position: relative;
+  animation: menuUp 0.25s ease;
+}
+
+@keyframes menuUp {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.modal-box h2 {
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 22px;
+  padding-right: 45px;
+}
+
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
+.close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.close-btn:active {
+  transform: scale(0.95);
+}
+
+
+/* =========================
+   MENU ITEM
+========================= */
+
+.menu-item {
+  display: flex;
+  gap: 14px;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.menu-item:last-child {
+  border-bottom: 0;
+}
+
+.menu-item-image {
+  width: 95px;
+  height: 95px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  object-fit: cover;
+  background: #f2f2f2;
+}
+
+.menu-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-item-info h3 {
+  font-size: 17px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.menu-item-info p {
+  color: #777;
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.menu-price {
+  font-size: 16px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+
+/* =========================
+   QUANTITY
+========================= */
+
+.quantity-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 4px;
+  background: #f8f8f6;
+}
+
+.quantity-btn {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 9px;
+  background: #111;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-btn:hover {
+  background: #333;
+}
+
+.quantity-btn:active {
+  transform: scale(0.92);
+}
+
+.quantity-number {
+  min-width: 25px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+
+/* =========================
+   CART
+========================= */
+
+#cartBox {
+  margin-top: 20px;
+}
+
+.cart {
+  background: #f5f5f3;
+  border-radius: 20px;
+  padding: 18px;
+  border: 1px solid #e5e5e2;
+}
+
+.cart h3 {
+  font-size: 19px;
+  font-weight: 900;
+  margin-bottom: 15px;
+}
+
+.cart-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-row > div {
+  min-width: 0;
+}
+
+.cart-row strong {
+  font-size: 14px;
+}
+
+.cart-row small {
+  display: block;
+  color: #777;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 0;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.cart-total strong {
+  font-size: 21px;
+}
+
+
+/* =========================
+   ORDER BUTTON
+========================= */
+
+.order-whatsapp-btn {
+  width: 100%;
+  min-height: 58px;
+  border: 0;
+  border-radius: 15px;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.order-whatsapp-btn:hover {
+  background: #252525;
+  transform: translateY(-2px);
+}
+
+.order-whatsapp-btn:active {
+  transform: scale(0.98);
+}
+
+
+/* =========================
+   EMPTY CART
+========================= */
+
+.cart-empty {
+  margin-top: 20px;
+  padding: 18px;
+  text-align: center;
+  border-radius: 15px;
+  background: #f5f5f3;
+  color: #777;
+  font-size: 14px;
+}
+
+
+/* =========================
+   TABLET / DESKTOP
+========================= */
+
+@media (min-width: 768px) {
+
+  body {
+    padding: 30px 0;
+  }
+
+  .cafe-page {
+    border-radius: 28px;
+
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.08);
+  }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 380px) {
+
+  .cafe-page {
+    padding: 22px 15px 25px;
+  }
+
+  .social-section {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .menu-item-image {
+    width: 82px;
+    height: 82px;
+  }
+
+  .menu-item {
+    gap: 10px;
+  }
+
+}
+
+
+/* =========================
+   VERY SMALL MOBILE
+========================= */
+
+@media (max-width: 320px) {
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .menu-item-image {
+    width: 72px;
+    height: 72px;
+  }
+
+  .menu-item-info h3 {
+    font-size: 15px;
+  }
+
+  .quantity-btn {
+    width: 31px;
+    height: 31px;
+  }
+
+}

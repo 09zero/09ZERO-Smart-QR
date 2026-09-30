@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>09ZERO Smart QR Generator</title>
+
+  <meta
+    name="description"
+    content="Generate a Smart QR Code for your cafe with 09ZERO."
+  >
+
+  <meta
+    name="theme-color"
+    content="#111111"
+  >
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #eeeeeb;
+      color: #111;
+      min-height: 100vh;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      padding: 30px 20px 50px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 30px 0;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: #111;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .header h1 {
+      font-size: clamp(30px, 8vw, 46px);
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: #777;
+      font-size: 14px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 25px 20px;
+      box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.08);
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .field input {
+      width: 100%;
+      height: 52px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 0 14px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .field input:focus {
+      border-color: #111;
+    }
+
+    .generate-btn {
+      width: 100%;
+      min-height: 58px;
+      border: 0;
+      border-radius: 15px;
+      background: #111;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .generate-btn:hover {
+      background: #252525;
+    }
+
+    .qr-result {
+      display: none;
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px solid #eee;
+      text-align: center;
+    }
+
+    .qr-result.active {
+      display: block;
+    }
+
+    .qr-result h2 {
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .qr-result p {
+      color: #777;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    #qrcode {
+      width: 220px;
+      min-height: 220px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+    }
+
+    #qrcode img,
+    #qrcode canvas {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .qr-url {
+      background: #f5f5f3;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 15px;
+      word-break: break-all;
+      font-size: 12px;
+      color: #555;
+    }
+
+    .print-btn {
+      width: 100%;
+      min-height: 55px;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      background: #fff;
+      color: #111;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .print-btn:hover {
+      background: #f5f5f3;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      color: #999;
+      font-size: 12px;
+    }
+
+    @media (max-width: 380px) {
+
+      .page {
+        padding: 20px 15px 40px;
+      }
+
+      .card {
+        padding: 20px 15px;
+      }
+
+      #qrcode {
+        width: 200px;
+        min-height: 200px;
+      }
+
+    }
+
+    @media print {
+
+      body {
+        background: #fff;
+      }
+
+      .header,
+      .card > .field,
+      .generate-btn,
+      .print-btn,
+      .footer {
+        display: none;
+      }
+
+      .page {
+        max-width: none;
+        padding: 0;
+      }
+
+      .card {
+        box-shadow: none;
+      }
+
+      .qr-result {
+        display: block;
+        border: 0;
+      }
+
+      .qr-result h2 {
+        font-size: 28px;
+      }
+
+      .qr-url {
+        display: none;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <main class="page">
+
+    <header class="header">
+
+      <div class="logo">
+        09ZERO
+      </div>
+
+      <h1>
+        Smart QR
+      </h1>
+
+      <p>
+        One Scan. Everything You Need.
+      </p>
+
+    </header>
+
+
+    <section class="card">
+
+      <div class="field">
+
+        <label for="cafeName">
+          Cafe Name
+        </label>
+
+        <input
+          type="text"
+          id="cafeName"
+          value="ABC CAFE"
+          placeholder="Enter cafe name"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="cafeId">
+          Cafe ID
+        </label>
+
+        <input
+          type="text"
+          id="cafeId"
+          value="abc-cafe"
+          placeholder="Example: abc-cafe"
+        >
+
+      </div>
+
+
+      <button
+        class="generate-btn"
+        id="generateBtn"
+      >
+        GENERATE QR CODE
+      </button>
+
+
+      <div
+        class="qr-result"
+        id="qrResult"
+      >
+
+        <h2>
+          Your QR Code
+        </h2>
+
+        <p>
+          Customers can scan this QR to open the digital menu.
+        </p>
+
+
+        <div id="qrcode"></div>
+
+
+        <div
+          class="qr-url"
+          id="qrUrl"
+        ></div>
+
+
+        <button
+          class="print-btn"
+          id="printBtn"
+        >
+          🖨️ PRINT QR CODE
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <footer class="footer">
+
+      09ZERO Smart QR
+
+    </footer>
+
+  </main>
+
+
+  <!-- QR CODE LIBRARY -->
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+  ></script>
+
+
+  <script>
+
+    const generateBtn =
+      document.getElementById(
+        "generateBtn"
+      );
+
+    const printBtn =
+      document.getElementById(
+        "printBtn"
+      );
+
+    const qrResult =
+      document.getElementById(
+        "qrResult"
+      );
+
+    const qrContainer =
+      document.getElementById(
+        "qrcode"
+      );
+
+    const qrUrl =
+      document.getElementById(
+        "qrUrl"
+      );
+
+    const cafeNameInput =
+      document.getElementById(
+        "cafeName"
+      );
+
+    const cafeIdInput =
+      document.getElementById(
+        "cafeId"
+      );
+
+
+    generateBtn.addEventListener(
+      "click",
+      () => {
+
+        const cafeName =
+          cafeNameInput.value.trim();
+
+        const cafeId =
+          cafeIdInput.value
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, "-");
+
+
+        if (!cafeName) {
+
+          alert(
+            "Please enter cafe name."
+          );
+
+          return;
+
+        }
+
+
+        if (!cafeId) {
+
+          alert(
+            "Please enter cafe ID."
+          );
+
+          return;
+
+        }
+
+
+        const cafeUrl =
+          `https://09zero.com/cafe/${cafeId}/`;
+
+
+        qrContainer.innerHTML = "";
+
+
+        new QRCode(
+          qrContainer,
+          {
+            text: cafeUrl,
+            width: 220,
+            height: 220,
+            correctLevel:
+              QRCode.CorrectLevel.H
+          }
+        );
+
+
+        qrUrl.textContent =
+          cafeUrl;
+
+
+        qrResult.classList.add(
+          "active"
+        );
+
+      }
+    );
+
+
+    printBtn.addEventListener(
+      "click",
+      () => {
+
+        window.print();
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>
